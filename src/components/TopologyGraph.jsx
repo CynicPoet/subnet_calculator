@@ -1,28 +1,60 @@
 import React from 'react';
 import { Graph } from 'react-d3-graph';
 
-// Helper function to build graph data from subnet information
-const buildGraphData = (data) => {
+// Helper function to build graph data for end devices
+const buildGraphData = (subnets) => {
   const nodes = [{ id: 'Main Network', color: 'blue', size: 800 }];
   const links = [];
 
-  data.forEach((subnet, index) => {
+  subnets.forEach((subnet, index) => {
+    const gateway = subnet.usableRange.split(' - ')[0]; // First usable IP is the gateway
     const subnetId = `Subnet ${index + 1}`;
 
+    // Add devices for this subnet
+    for (let i = 1; i <= subnet.totalHosts; i++) {
+      const deviceIP = incrementIP(gateway, i); // Assign IP addresses to devices
+
+      const deviceId = `Device ${index + 1}.${i}`;
+      nodes.push({
+        id: deviceId,
+        size: 300,
+        color: 'orange',
+        ipAddress: deviceIP,
+        subnetMask: subnet.subnetMask,
+        defaultGateway: gateway,
+      });
+
+      // Optionally, link each device to the "Subnet" node
+      links.push({ source: subnetId, target: deviceId });
+    }
+
+    // Add subnet node
     nodes.push({
       id: subnetId,
-      size: 400,
+      size: 500,
       color: 'green',
-      ipRange: subnet.usableRange,
       subnetMask: subnet.subnetMask,
-      broadcast: subnet.broadcastAddress,
     });
 
-    // Link each subnet node to the main network node
+    // Link subnet to the main network
     links.push({ source: 'Main Network', target: subnetId });
   });
 
   return { nodes, links };
+};
+
+// Helper function to increment an IP address
+const incrementIP = (ip, increment) => {
+  const parts = ip.split('.').map(Number);
+  let carry = increment;
+
+  for (let i = parts.length - 1; i >= 0; i--) {
+    const sum = parts[i] + carry;
+    parts[i] = sum % 256;
+    carry = Math.floor(sum / 256);
+  }
+
+  return parts.join('.');
 };
 
 const TopologyGraph = ({ subnets }) => {
@@ -62,7 +94,7 @@ const TopologyGraph = ({ subnets }) => {
           data={graphData}
           config={config}
           onClickNode={(nodeId, node) =>
-            alert(`Node: ${nodeId}\nIP Range: ${node.ipRange}\nSubnet Mask: ${node.subnetMask}\nBroadcast: ${node.broadcast}`)
+            alert(`Device: ${nodeId}\nIP Address: ${node.ipAddress}\nDefault Gateway: ${node.defaultGateway}\nSubnet Mask: ${node.subnetMask}`)
           }
         />
       </div>

@@ -1,4 +1,3 @@
-// Calculate the minimum number of bits required for the given number of hosts
 function calculateNetworkBits(hosts) {
   let bits = 0;
   while ((2 ** bits) - 2 < hosts) {

@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import InputForm from './components/InputForm';
 import SubnetTable from './components/SubnetTable';
-import TopologyGraph from './components/TopologyGraph';
+import PCVisualization from './components/PCVisualization';  // Import the new component
 import { calculateSubnets } from './utils/subnetUtils';
 
 function App() {
@@ -21,7 +21,7 @@ function App() {
       {data.length > 0 && (
         <>
           <SubnetTable data={data} />
-          <TopologyGraph subnets={data} />
+          <PCVisualization subnets={data} /> {/* Render the PC visualization */}
         </>
       )}
     </div>

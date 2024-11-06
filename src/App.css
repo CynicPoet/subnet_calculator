@@ -40,3 +40,170 @@
 .read-the-docs {
   color: #888;
 }
+
+/* Styling for the PC container */
+.pc-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-between; /* Ensures space distribution inside the box */
+  margin: 10px;
+  border: 1px solid #ccc;
+  padding: 15px;
+  border-radius: 10px;
+  background-color: #f9f9f9;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  width: 250px; /* Fixed width */
+  height: 350px; /* Fixed height */
+  box-sizing: border-box;
+}
+
+/* Styling for the image */
+.pc-image {
+  width: 150px; /* Image width */
+  height: 150px; /* Image height */
+  object-fit: contain;
+  margin-bottom: 10px;
+}
+
+/* Styling for the PC details */
+/* Styling for the PC details (IP, Subnet Mask, Gateway) */
+.pc-details {
+  /* padding: 10px; */
+  width: 100%; /* Ensure full width */
+}
+
+/* Styling for the PC details */
+.pc-details p {
+  display: flex;
+  justify-content: space-between; /* Align items with space between them */
+  align-items: center; /* Align items in the center vertically */
+  margin: 5px 0;
+  line-height: 1.5;
+  font-size: 1rem;
+}
+
+
+
+/* Values aligned to the left but grow with space */
+/* Values aligned to the left but grow with space */
+.pc-details p span {
+  text-align: left; 
+  flex-grow: 1; /* Fill remaining space */
+}
+
+
+
+
+
+/* Layout for the visualization container */
+/* Layout for the visualization container */
+.pc-visualization {
+  display: flex;
+  flex-wrap: wrap; /* Wrap PCs into multiple rows if they don't fit */
+  justify-content: flex-start; /* Align items to the start without creating large gaps */
+  gap: 20px; /* Space between the PC containers */
+  width: 100%; /* Ensure container takes full width */
+}
+
+/* Styling for each subnet section */
+.subnet-section {
+  display: flex;
+  flex-direction: column;
+  flex-wrap: wrap;
+  justify-content: flex-start; /* Align items to the start */
+  margin-bottom: 20px;
+  gap: 20px; /* Add space between PC boxes */
+  width: 100%;
+}
+
+.subnets{
+  display: flex;
+  flex-wrap: wrap;
+}
+
+
+/* Styling for the Subnet Heading */
+.subnet-title {
+  font-size: 1.5rem;
+  font-weight: bold;
+  text-align: left;
+  margin-bottom: 10px;
+  color: #333;
+}
+
+/* Styling for the Host Title */
+.host-title {
+  font-size: 1.2rem;
+  font-weight: bold;
+  margin-bottom: 10px;
+  text-align: center;
+  color: #007bff;
+}
+
+/* Rest of your existing styles */
+#root {
+  max-width: 1280px;
+  margin: 0 auto;
+  padding: 2rem;
+  text-align: center;
+}
+
+.pc-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-between;
+  margin: 10px;
+  border: 1px solid #ccc;
+  padding: 15px;
+  border-radius: 10px;
+  background-color: #f9f9f9;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  width: 250px;
+  height: 350px;
+  box-sizing: border-box;
+}
+
+.pc-image {
+  width: 150px;
+  height: 150px;
+  object-fit: contain;
+  margin-bottom: 10px;
+}
+
+.pc-details {
+  width: 100%;
+}
+
+.pc-details p {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin: 5px 0;
+  line-height: 1.5;
+  font-size: 1rem;
+}
+
+.pc-visualization {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: flex-start;
+  gap: 20px;
+  width: 100%;
+}
+
+.subnet-section {
+  display: flex;
+  flex-direction: column;
+  flex-wrap: wrap;
+  justify-content: flex-start;
+  margin-bottom: 20px;
+  gap: 20px;
+  width: 100%;
+}
+
+.subnets {
+  display: flex;
+  flex-wrap: wrap;
+}
