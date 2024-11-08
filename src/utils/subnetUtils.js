@@ -1,3 +1,4 @@
+// src/utils/subnetUtils.js
 function calculateNetworkBits(hosts) {
   let bits = 0;
   while ((2 ** bits) - 2 < hosts) {
@@ -7,21 +8,16 @@ function calculateNetworkBits(hosts) {
 }
 
 export function calculateSubnets({ hosts, subnets }) {
+  console.log(`Calculating subnets with hosts: ${hosts}, subnets: ${subnets}`);
   let results = [];
-  const baseIP = '192.168.0.0'; // Starting point for network
+  const baseIP = '192.168.0.0';
 
-  // Divide hosts evenly if subnets are provided
   const hostsPerSubnet = subnets ? Math.ceil(hosts / subnets) : hosts;
-
-  // Calculate the required number of bits and subnet mask
   const hostBits = calculateNetworkBits(hostsPerSubnet);
-  const totalHostsPerSubnet = (2 ** hostBits) - 2; // Usable hosts per subnet
-  const subnetMask = 32 - hostBits; // Subnet mask
+  const totalHostsPerSubnet = (2 ** hostBits) - 2;
+  const subnetMask = 32 - hostBits;
 
-  // Calculate how many subnets are needed
-  const requiredSubnets = subnets || Math.ceil(hosts / totalHostsPerSubnet);
-
-  for (let i = 0; i < requiredSubnets; i++) {
+  for (let i = 0; i < subnets; i++) {
     const subnetNetwork = incrementIP(baseIP, i * (totalHostsPerSubnet + 2));
 
     results.push({
@@ -31,14 +27,13 @@ export function calculateSubnets({ hosts, subnets }) {
       broadcastAddress: incrementIP(subnetNetwork, totalHostsPerSubnet + 1),
       usableRange: `${incrementIP(subnetNetwork, 1)} - ${incrementIP(subnetNetwork, totalHostsPerSubnet)}`,
       totalHosts: hostsPerSubnet,
-      reason: `Subnet created to exactly fit ${hostsPerSubnet} hosts.`,
+      reason: `Subnet created to fit ${hostsPerSubnet} hosts.`,
     });
   }
 
   return results;
 }
 
-// Helper function to increment an IP address by a given offset
 function incrementIP(ip, increment) {
   const parts = ip.split('.').map(Number);
   let carry = increment;

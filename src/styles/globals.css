@@ -1,0 +1,7 @@
+/* Add this to App.css or a new CSS file */
+.chat-container {
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+  }
+  
